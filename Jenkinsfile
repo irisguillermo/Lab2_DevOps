@@ -1,17 +1,20 @@
 pipeline {
     agent any
 
+    environment {
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                checkout scm // Checkout the code from SCM
+                // This step checks out the code from SCM (Git in this case)
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
                 script {
-                    // Run Maven to clean, compile, and build the project
                     sh 'mvn clean install'
                 }
             }
@@ -20,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run tests (if any)
+                    // Run tests using Maven or any other test framework
                     sh 'mvn test'
                 }
             }
@@ -29,7 +32,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Deployment steps (if applicable)
                     echo 'Deploying application...'
                 }
             }
@@ -38,7 +40,7 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline execution complete!'
+            echo 'Pipeline completed!'
         }
 
         success {
