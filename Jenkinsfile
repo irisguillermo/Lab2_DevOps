@@ -4,14 +4,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // This step checks out the code from SCM (Git in this case)
                 checkout scm
             }
         }
-
+        
         stage('Build') {
             steps {
                 script {
+                    // Run Maven build
                     sh 'mvn clean install'
                 }
             }
@@ -20,32 +20,28 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run tests using Maven or any other test framework
+                    // Run Maven tests
                     sh 'mvn test'
                 }
             }
         }
-
+        
         stage('Deploy') {
             steps {
                 script {
+                    // Add your deployment steps here if needed
                     echo 'Deploying application...'
                 }
             }
         }
     }
-
+    
     post {
-        always {
-            echo 'Pipeline completed!'
-        }
-
         success {
-            echo 'Build succeeded!'
+            echo 'Build and tests passed successfully!'
         }
-
         failure {
-            echo 'Build failed!'
+            echo 'There were errors during the build or tests.'
         }
     }
 }
