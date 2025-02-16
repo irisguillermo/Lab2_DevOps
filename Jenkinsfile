@@ -2,19 +2,22 @@ pipeline {
     agent any
 
     environment {
+        // Define environment variables here if needed
+        MAVEN_HOME = '/opt/maven'
+        JAVA_HOME = '/usr/lib/jvm/java-8-openjdk'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout scm // Checkout the code from SCM
             }
         }
 
         stage('Build') {
             steps {
                 script {
-                    // Run Maven build command (you can customize this step based on your build tool)
+                    // Run Maven to clean, compile, and build the project
                     sh 'mvn clean install'
                 }
             }
@@ -23,7 +26,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run tests using Maven or any other test framework
+                    // Run tests (if any)
                     sh 'mvn test'
                 }
             }
@@ -32,6 +35,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
+                    // Deployment steps (if applicable)
                     echo 'Deploying application...'
                 }
             }
@@ -40,7 +44,7 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline completed!'
+            echo 'Pipeline execution complete!'
         }
 
         success {
