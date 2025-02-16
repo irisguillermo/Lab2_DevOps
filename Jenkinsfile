@@ -2,19 +2,15 @@ pipeline {
     agent any
 
     environment {
-        // Define environment variables, if any
     }
 
     stages {
-        // Checkout code from the repository
         stage('Checkout') {
             steps {
-                // This step checks out the code from SCM (Git in this case)
                 checkout scm
             }
         }
 
-        // Build the project (e.g., compile, test, package)
         stage('Build') {
             steps {
                 script {
@@ -24,7 +20,6 @@ pipeline {
             }
         }
 
-        // Optional: Add additional stages such as testing or deployment
         stage('Test') {
             steps {
                 script {
@@ -37,7 +32,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Add your deployment steps here (e.g., copying files to a server, etc.)
                     echo 'Deploying application...'
                 }
             }
@@ -45,7 +39,6 @@ pipeline {
     }
 
     post {
-        // Actions to perform after the pipeline runs (e.g., clean up, notifications)
         always {
             echo 'Pipeline completed!'
         }
